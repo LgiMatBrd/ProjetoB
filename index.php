@@ -14,6 +14,7 @@ if (file_exists(ROOT_DIR.'/install/index.php'))
     include ROOT_DIR.'/install/index.php';
     
 }
+
 require_once ROOT_DIR.'/config/global.php';
 
 // Obtém o recurso solicitado ao servidor   

@@ -42,7 +42,7 @@ function GetMsg()
     global $msgs;
     if (isset($msgs[0]))
     {
-        $mymsg = array_shift($msgs[0]);
+        $mymsg = array_shift($msgs);
         $mymsg[0] = ($mymsg[0] === ERROR)? 'danger' : ($mymsg[0] === WARNING)? 'warning' : 'info';
         
         return [
