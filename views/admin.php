@@ -4,7 +4,7 @@
 // acessado de forma direta ou através de outro arquivo não previsto.
 // 
 // Testa se este arquivo foi incluído pelo seu controller
-if (!defined('OPERADOR_CONTROLLER'))
+if (!defined('ADMIN_CONTROLLER'))
     die;
 
 $time = date('Ymd');
@@ -18,7 +18,7 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Operador</title>
+        <title>Administrador</title>
         <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="css/uikit.min.css" />
         <link rel="stylesheet" href="css/uikit.gradient.min.css" />
@@ -70,6 +70,9 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
 		.uk-table > tbody > tr > td:nth-child(5) > i {
 			font-size: 16px !important;
 		}
+		.uk-overflow-container {
+			float: left !important;
+		}
         </style>
     </head>
     <body>
@@ -82,63 +85,18 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
                         <div class="uk-width-8-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/logo_skorp.png" /></div>
                     </div>
                     <div class="uk-panel-title"></div>
-					<h4 class="tm-article-subtitle" style="padding-left: 6px;border-left: 3px solid #E01048;font-size: 16px;line-height: 16px;"><strong>Lista de solicitações</strong></h4>
-					<div class="uk-overflow-container">
-						<table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<!--<th>Peça Solicitada</th>-->
-									<th>Hora da solicitação</th>
-									<th>Hora limite</th>
-									<th>Hora de entrega</th>
-									<th>Status</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<!--<tr>
-									<td>23435</td>
-									<!--<td>Coletor de resíduos</td>--><!--
-									<td>04/03/2017 ás <strong>15:33</strong></td>
-									<td>05/03/2017 ás <strong>15:33</strong></td>
-									<td>--/--/--</td>
-									<td><i style="color: green !important;" class="uk-icon-check-square-o"></i></td>
-									<td></td>
-								</tr>-->
-								<tr>
-									<td>23435</td>
-									<!--<td>Coletor de resíduos</td>-->
-									<td>04/03/2017 ás <strong>15:33</strong></td>
-									<td>05/03/2017 ás <strong>15:33</strong></td>
-									<td>--/--/--</td>
-									<td><i style="color: #c6c634 !important;" class="uk-icon-exclamation-triangle uk-text-center"></i></td> 
-									<td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-								</tr>
-								<tr>
-									<td>23435</td>
-									<!--<td>Coletor de resíduos</td>-->
-									<td>04/03/2017 ás <strong>15:33</strong></td>
-									<td>05/03/2017 ás <strong>15:33</strong></td>
-									<td>--/--/--</td>
-									<td><i style="color: red !important;" class="uk-icon-close uk-text-center"></i></td>
-									<td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-								</tr>
-								<tr>
-									<td>23435</td>
-									<!--<td>Coletor de resíduos</td>-->
-									<td>04/03/2017 ás <strong>15:33</strong></td>
-									<td>05/03/2017 ás <strong>15:33</strong></td>
-									<td>--/--/--</td>
-									<td><i style="color: #fff !important;" class="uk-icon-clock-o uk-text-center"></i></td>
-									<td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-								</tr>
-							</tbody>
-						</table>
-						<i style="color: red !important;" class="uk-icon-close"></i> = Em atraso<br/>
-						<i style="color: #c6c634 !important;" class="uk-icon-exclamation-triangle uk-text-center "></i> = Quase atrasando<br/>
-						<i style="color: #333 !important;" class="uk-icon-clock-o"></i> = Dentro do prazo
+					<div class="uk-width-1-2 uk-overflow-container">
+						<h4 class="tm-article-subtitle" style="padding-left: 6px;border-left: 3px solid #E01048;font-size: 16px;line-height: 16px;"><strong>Solicitações Díarias</strong></h4>
+						<canvas id="myChart" width="400" height="400"></canvas>
 					</div>
+					<div class="uk-width-1-2 uk-overflow-container">
+						<h4 class="tm-article-subtitle" style="padding-left: 6px;border-left: 3px solid #E01048;font-size: 16px;line-height: 16px;"><strong>Solicitações Semanais</strong></h4>
+						<canvas id="myChart2" width="400" height="400"></canvas>
+					</div>
+					<!--<div class="uk-width-1-1 uk-overflow-container">
+						<h4 class="tm-article-subtitle" style="padding-left: 6px;border-left: 3px solid #E01048;font-size: 16px;line-height: 16px;"><strong>Mais solicitadas do mês</strong></h4>
+						<canvas id="myChart3" width="400" height="400"></canvas>
+					</div>-->
                 </div>
             </div>
         </div>
@@ -146,5 +104,91 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
         <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999999; position: fixed;">
             <img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: 0px;" src="<? echo $concreteBackgroundWallPaper; ?>">
         </div>
+		<!--
+		<script src="../js/Chart.min.js" />
+		<script src="../js/admin_charts.js" />
+		-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+		<script>
+			var ctx = document.getElementById("myChart");
+			var ctx2 = document.getElementById("myChart2");
+			var ctx3 = document.getElementById("myChart3");
+			var myChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: ["Peça 01", "Peça 02", "Peça 03", "Peça 04", "Peça 05", "Peça 06"],
+					datasets: [{
+						label: 'Solicitações Díarias',
+						data: [12, 19, 3, 5, 2, 3],
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(255, 159, 64, 0.2)'
+						],
+						borderColor: [
+							'rgba(255,99,132,1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)'
+						],
+						borderWidth: 1
+					}]
+				},
+				options: {
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero:true
+							}
+						}]
+					}
+				}
+			});
+			var myChart2 = new Chart(ctx2, {
+				type: 'line',
+				data: {
+					labels: ["Peça 01", "Peça 02", "Peça 03", "Peça 04", "Peça 05", "Peça 06"],
+					datasets: [
+					{
+						label: "Solicitações semanais",
+						fill: false,
+						lineTension: 0.1,
+						backgroundColor: "rgba(75,192,192,0.4)",
+						borderColor: "rgba(75,192,192,1)",
+						borderCapStyle: 'butt',
+						borderDash: [],
+						borderDashOffset: 0.0,
+						borderJoinStyle: 'miter',
+						pointBorderColor: "rgba(75,192,192,1)",
+						pointBackgroundColor: "#fff",
+						pointBorderWidth: 1,
+						pointHoverRadius: 5,
+						pointHoverBackgroundColor: "rgba(75,192,192,1)",
+						pointHoverBorderColor: "rgba(220,220,220,1)",
+						pointHoverBorderWidth: 2,
+						pointRadius: 1,
+						pointHitRadius: 10,
+						data: [15, 29, 40, 61, 96, 95, 98],
+						spanGaps: false,
+					}
+				]
+				},
+				options: {
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero:true
+							}
+						}]
+					}
+				}
+			});
+		</script>
+		
     </body>
 </html>
