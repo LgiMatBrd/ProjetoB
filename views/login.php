@@ -28,11 +28,11 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
         <script type="text/JavaScript" src="js/forms.js"></script>
         <style>
             .uk-panel-box {
-                background: #fafafaee;
+                background: rgba(250,250,250,0.9);
                 border-radius: 8px;
             }
             .backstretch {
-                background: #2cb5e8cc; /* For browsers that do not support gradients */
+                background: rgba(44,181,232,0.8); /* For browsers that do not support gradients */
                 background: -webkit-linear-gradient(#0fb8ad, #2cb5e8); /* For Safari 5.1 to 6.0 */
                 background: -o-linear-gradient(#0fb8ad, #2cb5e8); /* For Opera 11.1 to 12.0 */
                 background: -moz-linear-gradient(#0fb8ad, #2cb5e8); /* For Firefox 3.6 to 15 */

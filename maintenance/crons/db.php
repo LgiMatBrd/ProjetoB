@@ -18,12 +18,12 @@ $file = MY_DIR.'/backups/'.$date->format('dmY').'.sql';
 system('mysqldump -h '.HOST.' -u '.USER.' -p\''.PASSWORD.'\' '.DATABASE." > $file");
 
 
-$files = glob(MY_DIR.'/backups/*.sql');
+$files = glob('./backups/*.sql');
 $date->sub($dbDeleteAfter);
 foreach ($files as $fsql)
 {
-    $name = substr($fsql, -3, 3);
+    $name = substr($fsql, 10, -4);
     $fdate = DateTime::createFromFormat('dmY', $name, $timezone);
-    if ($date > $fdate)
-        unlink(MY_DIR.'/backups/'.$fsql);
+    if ($fdate < $date)
+        unlink($fsql);
 }
