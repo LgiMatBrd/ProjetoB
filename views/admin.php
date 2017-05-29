@@ -7,10 +7,6 @@
 if (!defined('ADMIN_CONTROLLER'))
     die;
 
-$time = date('Ymd');
-$concreteBackgroundWallPaper = 'http://backgroundimages.concrete5.org/wallpaper/'.$time.'.jpg';
-$concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.php?image='.$time.'.jpg';
-
 ?>
 
 <!DOCTYPE html>
@@ -40,14 +36,14 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
 			background: linear-gradient(0deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
 		}
 		#logo_topo {
-			width: 20% !important;
-			margin-left: 36% !important;
+			width: 50% !important;
+			margin-left: 0 !important;
 		}
 		@media (max-width: 820px) {
 			#logo_topo {
-				width: 30% !important;
-				margin-left: 30% !important;
-				margin-top: -25px;
+				width: 80% !important;
+				margin-left: 0% !important;
+				margin-top: -20px;
 			}
 			.uk-table tr, .uk-table tr {
 				font-size: 10px;
@@ -82,7 +78,8 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
                     <div class="uk-grid">
                         <div class="uk-width-1-10"></div>
                         <!--<div class="uk-width-8-10"><h2 class="uk-text-center">Operador</h2></div>-->
-                        <div class="uk-width-8-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/logo_skorp.png" /></div>
+                        <div class="uk-width-2-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/geld.png" /></div>
+                        <div class="uk-width-2-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/bsa.png" /></div>
                     </div>
                     <div class="uk-panel-title"></div>
 					<div class="uk-width-1-2 uk-overflow-container">
@@ -102,93 +99,140 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
         </div>
         
         <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999999; position: fixed;">
-            <img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: 0px;" src="<? echo $concreteBackgroundWallPaper; ?>">
+            <img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: 0px;" src="assets/images/background_cnh_1.jpeg">
         </div>
-		<!--
-		<script src="../js/Chart.min.js" />
-		<script src="../js/admin_charts.js" />
-		-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-		<script>
-			var ctx = document.getElementById("myChart");
-			var ctx2 = document.getElementById("myChart2");
-			var ctx3 = document.getElementById("myChart3");
-			var myChart = new Chart(ctx, {
-				type: 'bar',
-				data: {
-					labels: ["Peça 01", "Peça 02", "Peça 03", "Peça 04", "Peça 05", "Peça 06"],
-					datasets: [{
-						label: 'Solicitações Díarias',
-						data: [12, 19, 3, 5, 2, 3],
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(255, 159, 64, 0.2)'
-						],
-						borderColor: [
-							'rgba(255,99,132,1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)'
-						],
-						borderWidth: 1
-					}]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero:true
-							}
-						}]
-					}
+	<!--
+	<script src="../js/Chart.min.js" />
+	<script src="../js/admin_charts.js" />
+	-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+	<script>
+	    var ctx = document.getElementById("myChart");
+	    var ctx2 = document.getElementById("myChart2");
+	    //var ctx3 = document.getElementById("myChart3");
+	    var task;
+	    var baColor = new Array();
+	    var boColor = new Array();
+
+	    $(document).ready(function (){
+		populate();
+	    });
+	    
+	    function populate()
+	    {
+		$.ajax({
+		    type: "POST",
+		    url: "/apps/admin.ajax.php",
+		    data: "",
+		    success: function (response)
+		    {
+			if (response.status === "ok")
+			{
+			    var labels = new Array();
+			    var data = new Array();
+			    $.each(response.semanal, function (index, value)
+			    {
+				labels.push("Peça "+index);
+				data.push(value);
+			    });
+			    printChart1(labels, data);
+			    labels = [];
+			    data = [];
+			    $.each(response.diario, function (index, value)
+			    {
+				labels.push("Peça "+index);
+				data.push(value);
+			    });
+			    printChart2(labels, data);
+			}
+			task = setTimeout(populate, 60000);
+		    },
+		    dataType: "json"
+		});
+	    }
+	    
+	    function randomNumber(min, max)
+	    {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	    }
+	    
+	    function printChart1(labels, data)
+	    {
+		for (var i = baColor.length; i < labels.length; i++)
+		{
+		    var r = randomNumber(0,255);
+		    var g = randomNumber(0,255);
+		    var b = randomNumber(0,255);
+		    baColor.push('rgba('+r+','+g+','+b+',0.2)');
+		    boColor.push('rgba('+r+','+g+','+b+',1)');
+		}
+		
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+			    labels: labels,
+			    datasets: [{
+				label: 'Solicitações Diárias',
+				data: data,
+				backgroundColor: baColor,
+				borderColor: boColor,
+				borderWidth: 1
+			    }]
+			},
+			options: {
+			    scales: {
+				yAxes: [{
+				    ticks: {
+					beginAtZero:true
+				    }
+				}]
+			    }
+			}
+		});
+	    }
+	    function printChart2(labels, data)
+	    {
+		var myChart2 = new Chart(ctx2, {
+		    type: 'line',
+		    data: {
+			labels: labels,
+			datasets: [
+			{
+			    label: "Solicitações semanais",
+			    fill: false,
+			    lineTension: 0.1,
+			    backgroundColor: "rgba(75,192,192,0.4)",
+			    borderColor: "rgba(75,192,192,1)",
+			    borderCapStyle: 'butt',
+			    borderDash: [],
+			    borderDashOffset: 0.0,
+			    borderJoinStyle: 'miter',
+			    pointBorderColor: "rgba(75,192,192,1)",
+			    pointBackgroundColor: "#fff",
+			    pointBorderWidth: 1,
+			    pointHoverRadius: 5,
+			    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+			    pointHoverBorderColor: "rgba(220,220,220,1)",
+			    pointHoverBorderWidth: 2,
+			    pointRadius: 1,
+			    pointHitRadius: 10,
+			    data: data,
+			    spanGaps: false,
+			}
+		    ]
+		    },
+		    options: {
+			scales: {
+			    yAxes: [{
+				ticks: {
+				    beginAtZero:true
 				}
-			});
-			var myChart2 = new Chart(ctx2, {
-				type: 'line',
-				data: {
-					labels: ["Peça 01", "Peça 02", "Peça 03", "Peça 04", "Peça 05", "Peça 06"],
-					datasets: [
-					{
-						label: "Solicitações semanais",
-						fill: false,
-						lineTension: 0.1,
-						backgroundColor: "rgba(75,192,192,0.4)",
-						borderColor: "rgba(75,192,192,1)",
-						borderCapStyle: 'butt',
-						borderDash: [],
-						borderDashOffset: 0.0,
-						borderJoinStyle: 'miter',
-						pointBorderColor: "rgba(75,192,192,1)",
-						pointBackgroundColor: "#fff",
-						pointBorderWidth: 1,
-						pointHoverRadius: 5,
-						pointHoverBackgroundColor: "rgba(75,192,192,1)",
-						pointHoverBorderColor: "rgba(220,220,220,1)",
-						pointHoverBorderWidth: 2,
-						pointRadius: 1,
-						pointHitRadius: 10,
-						data: [15, 29, 40, 61, 96, 95, 98],
-						spanGaps: false,
-					}
-				]
-				},
-				options: {
-					scales: {
-						yAxes: [{
-							ticks: {
-								beginAtZero:true
-							}
-						}]
-					}
-				}
-			});
-		</script>
+			    }]
+			}
+		    }
+		});
+	    }
+	</script>
 		
     </body>
 </html>
