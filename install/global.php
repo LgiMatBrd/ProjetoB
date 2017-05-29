@@ -7,12 +7,8 @@ if (!defined('ROOT_DIR'))
 if (isset($_POST['from-email'], $_POST['from-name']))
 {
     // Limpa e valida os dados passados em 
-    $fromname = filter_input(INPUT_POST, 'from-name', FILTER_SANITIZE_STRING);
-    $fromemail = filter_input(INPUT_POST, 'from-email', FILTER_SANITIZE_EMAIL);
-    if (!filter_var($fromemail, FILTER_VALIDATE_EMAIL)) {
-        // Email inválido
-        AddMsg(GLOB, ERROR, 'O endereço de email digitado não é válido');
-    }
+    $path = filter_input(INPUT_POST, 'path', FILTER_SANITIZE_STRING);
+    
     // Gera o arquivo global.php
     if (file_exists(ROOT_DIR.'/config/global.php'))
     {
@@ -42,8 +38,7 @@ setlocale(LC_ALL, 'pt_BR', 'ptb');
 error_reporting(0);
 
 define('UTC_TIMEZONE', -3);
-define('FROM_EMAIL', '$fromemail');
-define('FROM_NAME', '$fromname');
+define('FILE_PATH', '$path');
 
 \$url_base = '$urlBase';
 EOF;

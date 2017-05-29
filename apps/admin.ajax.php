@@ -38,12 +38,12 @@ $pecas7 = array();
 $pecas = array();
 $datetime = new DateTime();
 $sDatetime = clone $datetime;
-$sDatetime->modify('-7 days');
+$sDatetime->modify('-6 days');
 for (; $sDatetime <= $datetime; $sDatetime->modify('+1 day'))
 {
-    if (Botoes::ChecaExistencia($sDatetime->format('d-m-Y'), ROOT_DIR.'/') === false)
+    if (Botoes::ChecaExistencia($sDatetime->format('d-m-Y'), FILE_PATH) === false)
 	    continue;
-    $botoes = new Botoes($sDatetime->format('d-m-Y'), '30 minutes', '10 minutes', ROOT_DIR.'/');
+    $botoes = new Botoes($sDatetime->format('d-m-Y'), '30 minutes', '10 minutes', FILE_PATH);
     $pecas = $botoes->CountTotalPecas();
     foreach($pecas as $key => $val)
 	$pecas7[$key] = $pecas7[$key] + $val;
@@ -54,8 +54,6 @@ uksort($pecas7, function($a,$b){
 uksort($pecas, function($a,$b){
     return $a - $b;
 });
-//ksort($pecas7);
-//ksort($pecas);
 $resposta['semanal'] = $pecas7;
 $resposta['diario'] = $pecas;
 $resposta['status'] = 'ok';

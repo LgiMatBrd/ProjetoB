@@ -60,8 +60,12 @@ if (login_check($mysqli) == true) {
             include ROOT_DIR.'/controllers'.$recurso.'.php';
     
     else if ($recurso == '/index.php' || $recurso == '/')
-            header('Location: /home');
-    
+    {
+	if (admin_check() != true)
+	    header('Location: /operador');
+	else
+	    header('Location: /admin');
+    }    
     else if (file_exists(ROOT_DIR.'/views'.$recurso.'.php'))
             include ROOT_DIR.'/views'.$recurso.'.php';
     

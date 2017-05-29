@@ -45,7 +45,7 @@ function get(&$resposta)
     try
     {
     $datetime = new DateTime();
-    $botoes = new Botoes('28-05-2017', '30 minutes', '10 minutes', ROOT_DIR.'/');
+    $botoes = new Botoes($datetime->format('d-m-Y'), '30 minutes', '10 minutes', FILE_PATH);
     $resposta['data'] = array();
     for($i = 0; $cham = $botoes->GetChamada(); $i++)
     {
@@ -65,7 +65,7 @@ function update(&$resposta, $r, $d)
     $data = DateTime::createFromFormat('d/m/Y', $d);
     try
     {
-    $botoes = new Botoes($data->format('d-m-Y'), '30 minutes', '10 minutes', ROOT_DIR.'/');
+    $botoes = new Botoes($data->format('d-m-Y'), '30 minutes', '10 minutes', FILE_PATH);
     $ret = $botoes->RegEntrega($r);
     _helperResposta($resposta, $ret);
     $resposta['status'] = 'ok';

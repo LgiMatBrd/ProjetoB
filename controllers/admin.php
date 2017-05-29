@@ -15,6 +15,9 @@ if ($logged !== 'in')
     header('Location: /admin');
     die;
 }
+
+if (admin_check() == false)
+    die('<h1>Houve um problema com suas credenciais!</h1><h3>Essa página é de uso exclusivo dos administradores!</h3>');
     
 // Se não houve sessão segura iniciada, deve-se iniciar
 if (!defined('SESSION_START'))

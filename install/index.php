@@ -84,17 +84,18 @@ else
                             </div>
                         </fieldset>
                         <fieldset>
-                            <legend>Configurações dos emails enviados</legend>
+                            <legend>Configurações dos arquivos TXT</legend>
                             <div class="uk-form-row">
-                                <label class="uk-form-label">Enviar do email:</label>
+                                <label class="uk-form-label">Caminho para a pasta dos arquivos de chamadas:</label>
                                 <div class="uk-form-controls">
-                                    <input class="uk-width-1-1" type="email" name="from-email" required />
+                                    <input class="uk-width-1-1" type="text" name="path" required />
                                 </div>
                             </div>
                             <div class="uk-form-row uk-margin-large-bottom">
                                 <label class="uk-form-label">Enviar com o nome:</label>
                                 <div class="uk-form-controls">
                                     <input class="uk-width-1-1" type="text" name="from-name" required />
+				    <p>Exemplo: C:/Botoes/txts/</p>
                                 </div>
                             </div>
                         </fieldset>

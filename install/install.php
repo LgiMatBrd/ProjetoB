@@ -75,8 +75,8 @@ if (!hasError())
     if (!hasError())
         include_once ROOT_DIR.'/install/version.php';
     
-    if (!hasError())
-        include_once ROOT_DIR.'/install/cronjobs.php';
+    //if (!hasError())
+        //include_once ROOT_DIR.'/install/cronjobs.php';
 
 }
 
@@ -182,12 +182,7 @@ if (!hasError())
                             <span class="uk-text-large">Tarefa Cron de Manutenção</span>
                         </div>
                         <div class="uk-width-2-3">
-                            <?php
-                            while ($msg = GetMsg(CRON))
-                            { ?>
-                            <div class="uk-alert <? echo $msg['status']; ?>"><p><? echo $msg['msg']; ?></p></div>
-                            <?php
-                            } ?>
+                            
                         </div>
                     </div>
                     <div class="uk-grid">

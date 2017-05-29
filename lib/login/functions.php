@@ -39,7 +39,7 @@ function sec_session_start() {
 
 function login($loginTxt, $password, $mysqli) {
     // Usando definições pré-estabelecidas significa que a injeção de SQL (um tipo de ataque) não é possível. 
-    if ($stmt = $mysqli->prepare('SELECT id, email, pNome, username, pass, salt 
+    if ($stmt = $mysqli->prepare('SELECT id, email, pNome, username, pass, salt, atributos 
         FROM users
        WHERE username = ?
         LIMIT 1')) {
@@ -48,7 +48,7 @@ function login($loginTxt, $password, $mysqli) {
         $stmt->store_result();
  
         // obtém variáveis a partir dos resultados. 
-        $stmt->bind_result($user_id, $email, $pNome, $username, $db_password, $salt);
+        $stmt->bind_result($user_id, $email, $pNome, $username, $db_password, $salt, $atributos);
         $stmt->fetch();
  
         // faz o hash da senha com um salt excusivo.
@@ -71,6 +71,7 @@ function login($loginTxt, $password, $mysqli) {
                     // proteção XSS conforme imprimimos este valor
                     $user_id = preg_replace("/[^0-9]+/", "", $user_id);
                     $_SESSION['user_id'] = $user_id;
+		    $_SESSION['atributos'] = $atributos;
                     $_SESSION['email'] = $email;
                     $_SESSION['pNome'] = $pNome;
                     // proteção XSS conforme imprimimos este valor 
@@ -172,6 +173,21 @@ function login_check($mysqli) {
         // Não foi logado 
         return false;
     }
+}
+
+
+function admin_check()
+{
+    if (isset($_SESSION['user_id'], 
+                        $_SESSION['username'], 
+                        $_SESSION['login_string'],
+			$_SESSION['atributos'])) {
+	if ($_SESSION['atributos'] === 1)
+	    return true;
+	else
+	    return false;
+    }
+    return false;
 }
 
 
