@@ -7,9 +7,6 @@
 if (!defined('LOGIN_CONTROLLER'))
     die;
 
-$time = date('Ymd');
-$concreteBackgroundWallPaper = 'http://backgroundimages.concrete5.org/wallpaper/'.$time.'.jpg';
-$concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.php?image='.$time.'.jpg';
 ?>
 <!DOCTYPE html>
 <html class="uk-height-1-1">
@@ -83,7 +80,7 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
         </div>
         
         <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999999; position: fixed;">
-            <img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: 0px;" src="<? echo $concreteBackgroundWallPaper; ?>">
+            <img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: 0px;" src="assets/images/background_cnh_1.jpeg">
         </div>
     </body>
 </html>
