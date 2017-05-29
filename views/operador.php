@@ -70,6 +70,15 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
 		.uk-table > tbody > tr > td:nth-child(5) > i {
 			font-size: 16px !important;
 		}
+		.uk-icon-exclamation-triangle {
+		    color: #c6c634 !important;
+		}
+		.uk-icon-close {
+		    color: #ff0000 !important;
+		}
+		.uk-icon-clock-o {
+		    color: #ffffff !important;
+		}
         </style>
     </head>
     <body>
@@ -82,63 +91,63 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
                         <div class="uk-width-8-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/logo_skorp.png" /></div>
                     </div>
                     <div class="uk-panel-title"></div>
-					<h4 class="tm-article-subtitle" style="padding-left: 6px;border-left: 3px solid #E01048;font-size: 16px;line-height: 16px;"><strong>Lista de solicitações</strong></h4>
-					<div class="uk-overflow-container">
-						<table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<!--<th>Peça Solicitada</th>-->
-									<th>Hora da solicitação</th>
-									<th>Hora limite</th>
-									<th>Hora de entrega</th>
-									<th>Status</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<!--<tr>
-									<td>23435</td>
-									<!--<td>Coletor de resíduos</td>--><!--
-									<td>04/03/2017 ás <strong>15:33</strong></td>
-									<td>05/03/2017 ás <strong>15:33</strong></td>
-									<td>--/--/--</td>
-									<td><i style="color: green !important;" class="uk-icon-check-square-o"></i></td>
-									<td></td>
-								</tr>-->
-								<tr>
-									<td>23435</td>
-									<!--<td>Coletor de resíduos</td>-->
-									<td>04/03/2017 ás <strong>15:33</strong></td>
-									<td>05/03/2017 ás <strong>15:33</strong></td>
-									<td>--/--/--</td>
-									<td><i style="color: #c6c634 !important;" class="uk-icon-exclamation-triangle uk-text-center"></i></td> 
-									<td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-								</tr>
-								<tr>
-									<td>23435</td>
-									<!--<td>Coletor de resíduos</td>-->
-									<td>04/03/2017 ás <strong>15:33</strong></td>
-									<td>05/03/2017 ás <strong>15:33</strong></td>
-									<td>--/--/--</td>
-									<td><i style="color: red !important;" class="uk-icon-close uk-text-center"></i></td>
-									<td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-								</tr>
-								<tr>
-									<td>23435</td>
-									<!--<td>Coletor de resíduos</td>-->
-									<td>04/03/2017 ás <strong>15:33</strong></td>
-									<td>05/03/2017 ás <strong>15:33</strong></td>
-									<td>--/--/--</td>
-									<td><i style="color: #fff !important;" class="uk-icon-clock-o uk-text-center"></i></td>
-									<td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-								</tr>
-							</tbody>
-						</table>
-						<i style="color: red !important;" class="uk-icon-close"></i> = Em atraso<br/>
-						<i style="color: #c6c634 !important;" class="uk-icon-exclamation-triangle uk-text-center "></i> = Quase atrasando<br/>
-						<i style="color: #333 !important;" class="uk-icon-clock-o"></i> = Dentro do prazo
-					</div>
+		    <h4 class="tm-article-subtitle" style="padding-left: 6px;border-left: 3px solid #E01048;font-size: 16px;line-height: 16px;"><strong>Lista de solicitações</strong></h4>
+		    <div class="uk-overflow-container">
+			<table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
+			    <thead>
+				<tr>
+				    <th>ID</th>
+				    <!--<th>Peça Solicitada</th>-->
+				    <th>Hora da solicitação</th>
+				    <th>Hora limite</th>
+				    <th>Hora de entrega</th>
+				    <th>Status</th>
+				    <th></th>
+				</tr>
+			    </thead>
+			    <tbody id="table">
+				<!--<tr>
+				    <td>23435</td>
+				    <!--<td>Coletor de resíduos</td>--><!--
+				    <td>04/03/2017 ás <strong>15:33</strong></td>
+				    <td>05/03/2017 ás <strong>15:33</strong></td>
+				    <td>--/--/--</td>
+				    <td><i style="color: green !important;" class="uk-icon-check-square-o"></i></td>
+				    <td></td>
+				</tr>-->
+				<tr>
+				    <td>23435</td>
+				    <!--<td>Coletor de resíduos</td>-->
+				    <td>04/03/2017 ás <strong>15:33</strong></td>
+				    <td>05/03/2017 ás <strong>15:33</strong></td>
+				    <td>--/--/--</td>
+				    <td><i style="color: #c6c634 !important;" class="uk-icon-exclamation-triangle uk-text-center"></i></td> 
+				    <td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
+				</tr>
+				<tr>
+				    <td>23435</td>
+				    <!--<td>Coletor de resíduos</td>-->
+				    <td>04/03/2017 ás <strong>15:33</strong></td>
+				    <td>05/03/2017 ás <strong>15:33</strong></td>
+				    <td>--/--/--</td>
+				    <td><i style="color: red !important;" class="uk-icon-close uk-text-center"></i></td>
+				    <td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
+				</tr>
+				<tr>
+				    <td>23435</td>
+				    <!--<td>Coletor de resíduos</td>-->
+				    <td>04/03/2017 ás <strong>15:33</strong></td>
+				    <td>05/03/2017 ás <strong>15:33</strong></td>
+				    <td>--/--/--</td>
+				    <td><i style="color: #fff !important;" class="uk-icon-clock-o uk-text-center"></i></td>
+				    <td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
+				</tr>
+			    </tbody>
+			</table>
+			<i style="color: red !important;" class="uk-icon-close"></i> = Em atraso<br/>
+			<i style="color: #c6c634 !important;" class="uk-icon-exclamation-triangle uk-text-center "></i> = Quase atrasando<br/>
+			<i style="color: #333 !important;" class="uk-icon-clock-o"></i> = Dentro do prazo
+		    </div>
                 </div>
             </div>
         </div>
@@ -146,5 +155,92 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
         <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999999; position: fixed;">
             <img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: 0px;" src="<? echo $concreteBackgroundWallPaper; ?>">
         </div>
+	
+	<script>
+	    $(document).ready(function (){
+		populate();
+	    });
+	    var task;
+	    function populate()
+	    {
+		$.ajax({
+		    type: "POST",
+		    url: "/apps/operador.ajax.php",
+		    data: "",
+		    success: function (response)
+		    {
+			if (response.status === "ok")
+			{
+			    for (var i = 0, row = response.data[0]; i < response.data.length; i++, row = response.data[i])
+			    {
+				_printRow(row);
+			    }
+			}
+			task = setTimeout(populate, 30000);
+		    },
+		    dataType: "json"
+		});
+	    }
+	    
+	    function entregue(btn,reg,data)
+	    {
+		clearTimeout(task);
+		$(btn).html('<i style="color: #333 !important;" class="uk-icon-refresh uk-icon-spin"></i>');
+		$(btn).attr("disabled",true);
+		$.ajax({
+		    type: "POST",
+		    url: "/apps/operador.ajax.php",
+		    data: {
+			update: 'true',
+			reg: reg,
+			d: data
+		    },
+		    success: function (response)
+		    {
+			if (response.status === "ok")
+			{
+			    _printRow(response.data[0]);
+			}
+			task = setTimeout(populate, 5000);
+		    },
+		    dataType: "json"
+		});
+	    }
+	    
+	    function _printRow(row)
+	    {
+		if (row['ed'] != null)
+		{
+		    var entr = row['ed']+' às '+row['eh'];
+		    var btIco = '<i style="color: #333 !important;" class="uk-icon-check"></i>';
+		    var btAttr = ' disabled';
+		}
+		else
+		{
+		    var entr = '--/--/--';
+		    var btIco = '<i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i>';
+		    var btAttr = '';
+		}
+	    
+		var html = '<td>'+row['p']+'</td>\
+				    <!--<td>Coletor de resíduos</td>-->\
+				    <td>'+row['d']+' às <strong>'+row['h']+'</strong></td>\
+				    <td>'+row['td']+' às <strong>'+row['th']+'</strong></td>\
+				    <td>'+entr+'</td>\
+				    <td class="uk-text-center"><i class="'+row['status']+'"></i></td>\
+				    <td><button class="uk-button" onclick="entregue(this,'+row['r']+',\''+row['d']+'\');"'+btAttr+'>'+btIco+'</button></td>';
+		if ($('#'+row['r']).length != 0)
+		{
+		    if ($('#'+row['r']).html() != html)
+		    {
+			$('#'+row['r']).html(html);
+		    }
+		}
+		else
+		{
+		    $('#table').prepend('<tr id="'+row['r']+'">'+html+'</tr>');
+		}
+	    }
+	</script>
     </body>
 </html>
