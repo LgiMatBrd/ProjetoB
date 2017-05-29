@@ -7,10 +7,6 @@
 if (!defined('OPERADOR_CONTROLLER'))
     die;
 
-$time = date('Ymd');
-$concreteBackgroundWallPaper = 'http://backgroundimages.concrete5.org/wallpaper/'.$time.'.jpg';
-$concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.php?image='.$time.'.jpg';
-
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +66,17 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
 		.uk-table > tbody > tr > td:nth-child(5) > i {
 			font-size: 16px !important;
 		}
+		#logo_topo {
+			width: 50% !important;
+			margin-left: 0 !important;
+		}
+		@media (max-width: 820px) {
+			#logo_topo {
+				width: 80% !important;
+				margin-left: 0% !important;
+				margin-top: -20px;
+			}
+		}
 		.uk-icon-exclamation-triangle {
 		    color: #c6c634 !important;
 		}
@@ -86,9 +93,8 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
             <div class="uk-width-9-10 uk-container-center uk-margin-large uk-margin-large-top">
                 <div class="uk-panel uk-panel-space uk-panel-box uk-panel-header">
                     <div class="uk-grid">
-                        <div class="uk-width-1-10"></div>
-                        <!--<div class="uk-width-8-10"><h2 class="uk-text-center">Operador</h2></div>-->
-                        <div class="uk-width-8-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/logo_skorp.png" /></div>
+                        <div class="uk-width-2-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/geld.png" /></div>
+                        <div class="uk-width-2-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/bsa.png" /></div>
                     </div>
                     <div class="uk-panel-title"></div>
 		    <h4 class="tm-article-subtitle" style="padding-left: 6px;border-left: 3px solid #E01048;font-size: 16px;line-height: 16px;"><strong>Lista de solicitações</strong></h4>
@@ -106,42 +112,6 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
 				</tr>
 			    </thead>
 			    <tbody id="table">
-				<!--<tr>
-				    <td>23435</td>
-				    <!--<td>Coletor de resíduos</td>--><!--
-				    <td>04/03/2017 ás <strong>15:33</strong></td>
-				    <td>05/03/2017 ás <strong>15:33</strong></td>
-				    <td>--/--/--</td>
-				    <td><i style="color: green !important;" class="uk-icon-check-square-o"></i></td>
-				    <td></td>
-				</tr>-->
-				<tr>
-				    <td>23435</td>
-				    <!--<td>Coletor de resíduos</td>-->
-				    <td>04/03/2017 ás <strong>15:33</strong></td>
-				    <td>05/03/2017 ás <strong>15:33</strong></td>
-				    <td>--/--/--</td>
-				    <td><i style="color: #c6c634 !important;" class="uk-icon-exclamation-triangle uk-text-center"></i></td> 
-				    <td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-				</tr>
-				<tr>
-				    <td>23435</td>
-				    <!--<td>Coletor de resíduos</td>-->
-				    <td>04/03/2017 ás <strong>15:33</strong></td>
-				    <td>05/03/2017 ás <strong>15:33</strong></td>
-				    <td>--/--/--</td>
-				    <td><i style="color: red !important;" class="uk-icon-close uk-text-center"></i></td>
-				    <td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-				</tr>
-				<tr>
-				    <td>23435</td>
-				    <!--<td>Coletor de resíduos</td>-->
-				    <td>04/03/2017 ás <strong>15:33</strong></td>
-				    <td>05/03/2017 ás <strong>15:33</strong></td>
-				    <td>--/--/--</td>
-				    <td><i style="color: #fff !important;" class="uk-icon-clock-o uk-text-center"></i></td>
-				    <td><button class="uk-button"><i style="color: #333 !important;" class="uk-icon-paper-plane uk-text-center"></i></button></td>
-				</tr>
 			    </tbody>
 			</table>
 			<i style="color: red !important;" class="uk-icon-close"></i> = Em atraso<br/>
@@ -153,7 +123,7 @@ $concreteBackgroundDesc = 'http://backgroundimages.concrete5.org/get_image_data.
         </div>
         
         <div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999999; position: fixed;">
-            <img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: 0px;" src="<? echo $concreteBackgroundWallPaper; ?>">
+            <img style="position: absolute; margin: 0px; padding: 0px; border: medium none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: 0px; top: 0px;" src="assets/images/background_cnh_1.jpeg">
         </div>
 	
 	<script>
