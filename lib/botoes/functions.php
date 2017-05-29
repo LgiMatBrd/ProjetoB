@@ -123,6 +123,30 @@ class Botoes
 	return $ret;
     }
     
+    function CountTotalPecas()
+    {
+	$ret = array();
+	foreach ($this->arChamadas as $cham)
+	{
+	    $pc = str_replace(array("\n","\r"), '', $cham[1]);
+	    if (!isset($ret[$pc]))
+		$ret[$pc] = 1;
+	    else
+		$ret[$pc]++;
+	}
+	return $ret;
+    }
+    
+    static function ChecaExistencia($data, $path = defaultPath)
+    {
+	$f = $data.'_-_registro_chamada.txt';
+	$fp = $path.$f;
+	if (file_exists($fp))
+	    return true;
+        else
+	    return false;
+    }
+    
     function Error($msg)
     {
 	// Fatal error
