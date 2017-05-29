@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SeyService - Erro</title>
+        <title>Erro</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="css/uikit.min.css" />
         <link rel="stylesheet" href="css/uikit.gradient.min.css" />
@@ -16,8 +16,8 @@
             
             <div class="uk-width-medium-1-3 uk-vertical-align uk-container-center uk-row-first">
                 <div class="uk-vertical-align-middle">
-                    <h1>SeyService</h1>
-                    <h3>Ops! Não conseguimos entender a sua solicitação.</h3>
+                    <h1>Ops!</h1>
+                    <h3>Não conseguimos entender a sua solicitação.</h3>
                 </div>
             </div>
         </div>
