@@ -4,7 +4,7 @@ if (!defined('ROOT_DIR'))
     die('Acesso não autorizado!');
 
 
-if (isset($_POST['from-email'], $_POST['from-name']))
+if (isset($_POST['path']))
 {
     // Limpa e valida os dados passados em 
     $path = filter_input(INPUT_POST, 'path', FILTER_SANITIZE_STRING);
