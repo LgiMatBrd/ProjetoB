@@ -96,6 +96,9 @@ if (!defined('OPERADOR_CONTROLLER'))
                         <div class="uk-width-2-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/geld.png" /></div>
                         <div class="uk-width-2-10 uk-container-center"><img id="logo_topo" class="" src="assets/images/bsa.png" /></div>
                     </div>
+					<?php if (admin_check() == true) { 
+						echo '<a href="/admin"><button>Tela do Administrador</button></a>'; 
+					} ?>
                     <div class="uk-panel-title"></div>
 		    <h4 class="tm-article-subtitle" style="padding-left: 6px;border-left: 3px solid #E01048;font-size: 16px;line-height: 16px;"><strong>Lista de solicitações</strong></h4>
 		    <div class="uk-overflow-container">
@@ -146,7 +149,7 @@ if (!defined('OPERADOR_CONTROLLER'))
 				_printRow(row);
 			    }
 			}
-			task = setTimeout(populate, 30000);
+			task = setTimeout(populate, 5000);
 		    },
 		    dataType: "json"
 		});

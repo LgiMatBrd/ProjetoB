@@ -34,28 +34,69 @@ require ROOT_DIR.'/lib/botoes/functions.php';
 
 try
 {
-$pecas7 = array();
-$pecas = array();
+$porSemana = array();
+$atrasadasPorHora = array();
+$noPrazoPorHora = array();
+$atrasadasNaSemana = array();
+$noPrazoNaSemana = array();
+$atrasadasNoMes = array();
+$noPrazoNoMes = array();
+$PecasPorDia = array();
 $datetime = new DateTime();
 $sDatetime = clone $datetime;
-$sDatetime->modify('-6 days');
+$sDatetime->modify('-7 days');
+$mDatetime = clone $datetime;
+$mDatetime->modify('-1 month');
+for (; $mDatetime < $sDatetime; $mDatetime->modify('+1 day'))
+{
+    if (Botoes::ChecaExistencia($sDatetime->format('d-m-Y'), FILE_PATH) === false)
+	    continue;
+    $botoes = new Botoes($sDatetime->format('d-m-Y'), '30 minutes', '10 minutes', FILE_PATH);
+    $dia = $mDatetime->format('d');
+    $botoes->GetTotalPorDia($atrasadasNoMes[$dia], $noPrazoNoMes[$dia]); // Para o gráfico 'comparação mensal'
+}
+
 for (; $sDatetime <= $datetime; $sDatetime->modify('+1 day'))
 {
     if (Botoes::ChecaExistencia($sDatetime->format('d-m-Y'), FILE_PATH) === false)
 	    continue;
     $botoes = new Botoes($sDatetime->format('d-m-Y'), '30 minutes', '10 minutes', FILE_PATH);
-    $pecas = $botoes->CountTotalPecas();
-    foreach($pecas as $key => $val)
-	$pecas7[$key] = $pecas7[$key] + $val;
+    $dia = $sDatetime->format('d');
+    $botoes->GetTotalPorDia($atrasadasNoMes[$dia], $noPrazoNoMes[$dia]); // Para o gráfico 'comparação mensal'
+    $PecasPorDia[$dia] = $botoes->GetTotalChamadas(); // Para o gráfico 'solicitações semanais'
+    $atrasadasNaSemana[$dia] = $atrasadasNoMes[$dia]; // Para o gráfico 'comparação semanal'
+    $noPrazoNaSemana[$dia] = $noPrazoNoMes[$dia]; // Para o gráfico 'comparação semanal'
 }
-uksort($pecas7, function($a,$b){
+if (Botoes::ChecaExistencia($datetime->format('d-m-Y'), FILE_PATH) !== false)
+{
+    $botoes = new Botoes($datetime->format('d-m-Y'), '30 minutes', '10 minutes', FILE_PATH);
+    $botoes->GetTotalPorHora($atrasadasPorHora, $noPrazoPorHora);
+}
+else
+{
+    $atrasadasPorHora = 0;
+    $noPrazoPorHora = 0;
+}
+uksort($atrasadasPorHora, function($a,$b){
     return $a - $b;
 });
-uksort($pecas, function($a,$b){
+uksort($noPrazoPorHora, function($a,$b){
     return $a - $b;
 });
-$resposta['semanal'] = $pecas7;
-$resposta['diario'] = $pecas;
+
+$resposta['solDiarias'] = [
+    'atrasadas' => $atrasadasPorHora,
+    'noPrazo' => $noPrazoPorHora
+];
+$resposta['solSemanais'] = $PecasPorDia;
+$resposta['compSemanal'] = [
+    'atrasadas' => $atrasadasNaSemana,
+    'noPrazo' => $noPrazoNaSemana
+];
+$resposta['compMensal'] = [
+    'atrasadas' => $atrasadasNoMes,
+    'noPrazo' => $noPrazoNoMes
+];
 $resposta['status'] = 'ok';
 }
 catch (Exception $e)

@@ -143,51 +143,27 @@ if (!defined('ADMIN_CONTROLLER'))
 			{
 			    var labels = new Array();
 			    var data = new Array();
-			    var data2 = new Array();
-			    $.each(response.solDiarias["atrasadas"], function (index, value)
+//				console.dir(response.semanal);
+			    $.each(response.semanal, function (index, value)
 			    {
-				labels.push(index+":00");
-				data.push(value);
+					if (index) {
+						labels.push("Peça "+index);
+						data.push(value);	
+					}
 			    });
-			    $.each(response.solDiarias["noPrazo"], function (index, value)
-			    {
-				data2.push(value);
-			    });
-			    printChart1(labels, data, data2);
-			    labels = [];
-			    data = [];
-			    $.each(response.solSemanais, function (index, value)
-			    {
-				labels.push("Dia "+index);
-				data.push(value);
-			    });
+			    printChart1(labels, data);
 			    printChart2(labels, data);
 			    labels = [];
 			    data = [];
-			    data2 = [];
-			    $.each(response.compSemanal["atrasadas"], function (index, value)
+			    $.each(response.diario, function (index, value)
 			    {
-				labels.push("Dia "+index);
-				data.push(value);	
+					if (index) {
+						labels.push("Peça "+index);
+						data.push(value);	
+					}
 			    });
-			    $.each(response.compSemanal["noPrazo"], function (index, value)
-			    {
-				data2.push(value);	
-			    });
-			    printChart3(labels, data, data2);
-			    labels = [];
-			    data = [];
-			    data2 = [];
-			    $.each(response.compMensal["atrasadas"], function (index, value)
-			    {
-				labels.push("Dia "+index);
-				data.push(value);
-			    });
-			    $.each(response.compMensal["noPrazo"], function (index, value)
-			    {
-				data2.push(value);
-			    });
-			    printChart4(labels, data, data2);
+			    printChart3(labels, data);
+			    printChart4(labels, data);
 			}
 			task = setTimeout(populate, 30000);
 		    },
@@ -200,18 +176,27 @@ if (!defined('ADMIN_CONTROLLER'))
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	    }
 	    
-	    function printChart1(labels, data, data2) {
+	    function printChart1(labels, data) {
+		for (var i = baColor.length; i < labels.length; i++)
+		{
+		    var r = randomNumber(0,255);
+		    var g = randomNumber(0,255);
+		    var b = randomNumber(0,255);
+		    baColor.push('rgba('+r+','+g+','+b+',0.2)');
+		    boColor.push('rgba('+r+','+g+','+b+',1)');
+		}
+		
 		var myChart = new Chart(ctx, {
 			type: 'line',
 			  data: {
-				labels: labels,
+				labels: ['13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'],
 				datasets: [{ 
-					data: data2,
+					data: [168,170,178,190,203,276,408,547,675,734],
 					label: "Entregues",
 					borderColor: "#3cba9f",
 					fill: true
 				  }, { 
-					data: data,
+					data: [68,70,78,90,103,176,208,247,275,334],
 					label: "Atrasadas",
 					borderColor: "#c45850",
 					fill: true
@@ -240,43 +225,36 @@ if (!defined('ADMIN_CONTROLLER'))
 		var myChart = new Chart(ctx2, {
 			type: 'bar',
 			data: {
-			  labels: labels,
+			  labels: ["Dia 01", "Dia 02", "Dia 03", "Dia 04", "Dia 05"],
 			  datasets: [
 				{
 				  label: "Solicitações de peças por dia.",
-				  backgroundColor: boColor,
-				  data: data
+				  backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+				  data: [2478,5267,734,784,433]
 				}
 			  ]
 			},
 			options: {
-			    legend: { display: false },
-			    title: {
-				  display: true,
-				  text: 'Número de vezes em que peças foram solicitadas separadas por dia.'
-			    },
-			    scales: {
-				yAxes: [{
-				    ticks: {
-					beginAtZero:true
-				    }
-				}]
-			    }
+			  legend: { display: false },
+			  title: {
+				display: true,
+				text: 'Número de vezes em que peças foram solicitadas separadas por dia.'
+			  }
 			}
 		});
 	    }
-	    function printChart3(labels, data, data2) {
+	    function printChart3(labels, data) {
 			var myChart2 = new Chart(ctx3, {
 				type: 'line',
 				  data: {
-					labels: labels,
+					labels: ['Dia 15','Dia 16','Dia 17','Dia 18','Dia 19','Dia 20','Dia 21','Dia 22','Dia 23','Dia 24'],
 					datasets: [{ 
-						data: data2,
+						data: [168,170,178,190,203,276,408,547,675,734],
 						label: "Entregues",
 						borderColor: "#3cba9f",
 						fill: true
 					  }, { 
-						data: data,
+						data: [6,3,2,2,7,26,82,172,312,433],
 						label: "Atrasadas",
 						borderColor: "#c45850",
 						fill: true
@@ -291,18 +269,18 @@ if (!defined('ADMIN_CONTROLLER'))
 				  }
 			});
 	    }
-	    function printChart4(labels, data, data2) {
+	    function printChart4(labels, data) {
 			var myChart2 = new Chart(ctx4, {
 				type: 'line',
 				  data: {
-					labels: labels,
+					labels: ['Dia 15','Dia 16','Dia 17','Dia 18','Dia 19','Dia 20','Dia 21','Dia 22','Dia 23','Dia 24'],
 					datasets: [{ 
-						data: data2,
+						data: [456,353,276,257,234,226,282,272,312,333],
 						label: "Entregues",
 						borderColor: "#3cba9f",
 						fill: true
 					  }, { 
-						data: data,
+						data: [168,170,178,190,203,276,408,547,675,734],
 						label: "Atrasadas",
 						borderColor: "#c45850",
 						fill: true

@@ -123,7 +123,7 @@ class Botoes
 	return $ret;
     }
     
-    function CountTotalPecas()
+    function GetTotalPorPecas()
     {
 	$ret = array();
 	foreach ($this->arChamadas as $cham)
@@ -137,6 +137,66 @@ class Botoes
 	return $ret;
     }
     
+    function GetTotalPorHora(&$atrasadas, &$noPrazo)
+    {
+	$atrasadas = array();
+	$noPrazo = array();
+	foreach ($this->arChamadas as $key => $cham)
+	{
+	    if (isset($this->arLiberadas[$key]))
+	    {
+		$liberada = &$this->arLiberadas[$key];
+		$dref = DateTime::createFromFormat('d/m/Y H:i:s', $liberada[3], $this->TimeZone);
+	    }
+	    else
+		continue; // A peça não foi entregue ainda!
+	    $datetime = DateTime::createFromFormat('d/m/Y H:i:s', $cham[0], $this->TimeZone);
+	    $timeoutDateTime = clone $datetime;
+	    $timeoutDateTime->modify('+ '.$this->Timeout);
+	    $hTimeoutDateTime = clone $datetime;
+	    $hTimeoutDateTime->modify('+ '.$this->hTimeout);
+	    $hora = $datetime->format('H');
+	    if (!isset($atrasadas[$hora]))
+		$atrasadas[$hora] = 0;
+	    if (!isset($noPrazo[$hora]))
+		$noPrazo[$hora] = 0;
+	    if ($dref > $timeoutDateTime)
+		$atrasadas[$hora]++;
+	    else
+		$noPrazo[$hora]++;
+	}
+    }
+    
+    function GetTotalPorDia(&$atrasadas, &$noPrazo)
+    {
+	$atrasadas = 0;
+	$noPrazo = 0;
+	foreach ($this->arChamadas as $key => $cham)
+	{
+	    if (isset($this->arLiberadas[$key]))
+	    {
+		$liberada = &$this->arLiberadas[$key];
+		$dref = DateTime::createFromFormat('d/m/Y H:i:s', $liberada[3], $this->TimeZone);
+	    }
+	    else
+		continue; // A peça não foi entregue ainda!
+	    $datetime = DateTime::createFromFormat('d/m/Y H:i:s', $cham[0], $this->TimeZone);
+	    $timeoutDateTime = clone $datetime;
+	    $timeoutDateTime->modify('+ '.$this->Timeout);
+	    $hTimeoutDateTime = clone $datetime;
+	    $hTimeoutDateTime->modify('+ '.$this->hTimeout);
+	    if ($dref > $timeoutDateTime)
+		$atrasadas++;
+	    else
+		$noPrazo++;
+	}
+    }
+    
+    function GetTotalChamadas()
+    {
+	return count($this->arChamadas);
+    }
+        
     static function ChecaExistencia($data, $path = defaultPath)
     {
 	$f = $data.'_-_registro_chamada.txt';
